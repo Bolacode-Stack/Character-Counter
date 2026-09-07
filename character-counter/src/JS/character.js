@@ -9,11 +9,12 @@ import {
 } from "./alphabet.js";
 
 import Storage from "./storage.js";
-import "/src/css/character.css";
+import "/src/CSS/character.css";
 
 let object = {
   start: false,
 };
+
 
 const limitInput = document.querySelector(".limit-count");
 const limitReached = document.querySelector(".limit-reached");
