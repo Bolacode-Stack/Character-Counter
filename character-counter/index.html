@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Character Counter | Analyze your text in real-time</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="icon" type="x-icon" href="/icon-moon.svg" />
+  </head>
+  <body class="dark-theme">
+    <nav class="nav character-grid">
+      <img src="/src/Assets/images/logo-dark-theme.svg" alt="not visible" id="logo" />
+      <div class="theme-switcher">
+        <img src="/src/Assets/images/icon-sun.svg" alt="" id="icon" />
+      </div>
+    </nav>
+    <main class="character-grid main">
+      <div class="showcase">
+        <h1 class="heading">Analyze your text in real-time</h1>
+        <textarea
+          name="input"
+          for="character-input"
+          placeholder="Start typing here... (or paste some text)"
+          id="character-input"
+        ></textarea>
+        <!-- limit  -->
+        <div class="limit-reached">
+          <img src="/src/Assets/images/icon-info.svg" alt="" />
+          <p id="warning">
+            Limit reached! Your text exceeds 300 characters.
+          </p>
+        </div>
+        <div class="showcase-data">
+          <!-- (1) -->
+          <div class="checkbox-contents">
+            <input type="checkbox" id="spaces" />
+            <label for="Exclude spaces">exclude spaces</label>
+          </div>
+          <!-- (2) -->
+          <div class="checkbox-contents">
+            <input type="checkbox" id="limit-check" />
+            <label for="limit">set character limit</label>
+            <input type="text" placeholder="" class="limit-count" />
+            <button class="reset">Reset UI</button>
+          </div>
+          <div class="reading">
+            <p class="">
+              Approx. reading time: <span class="reading-time">1 minute</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+    <section class="character-grid character-data">
+      
+      <div class="boxes">
+        <!-- (1) -->
+        <div class="box">
+          <div class="box-contents purple-box">
+            <h1 id="total-characters">00</h1>
+            <p class="total">total characters</p>
+          </div>
+          <img
+            src="/src/Assets/images/pattern-character-count.svg"
+            alt=""
+            class="pattern"
+          />
+        </div>
+        <div class="box">
+          <div class="box-contents">
+            <h1 class="word-count">00</h1>
+            <p>word count</p>
+          </div>
+          <img src="/src/Assets/images/pattern-word-count.svg" alt="" />
+        </div>
+        <div class="box">
+          <div class="box-contents">
+            <h1 class="sentence-count">00</h1>
+            <p>sentence count</p>
+          </div>
+          <img src="/src/Assets/images/pattern-sentence-count.svg" alt="" />
+        </div>
+      </div>
+    </section>
+
+    <section class="character-grid">
+      <div class="stats">
+        <h1 class="">Letter Density</h1>
+        <p class="stats-paragraph">
+          No characters found. Start typing to see letter density.
+        </p>
+      </div>
+
+      <div class="contents">
+        <div class="progress-wrapper graph"></div>
+      </div>
+    </section>
+    <script src="src/JS/character.js" type="module"></script>
+  </body>
+</html>
+
