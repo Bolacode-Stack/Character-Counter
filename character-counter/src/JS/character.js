@@ -2,10 +2,10 @@
 let code;
 
 import {
+  button,
   buildGraph,
   alphabetStats,
   getCharacters,
-  button,
 } from "./alphabet.js";
 
 import Storage from "./storage.js";
@@ -14,7 +14,6 @@ import "/src/CSS/character.css";
 let object = {
   start: false,
 };
-
 
 const limitInput = document.querySelector(".limit-count");
 const limitReached = document.querySelector(".limit-reached");
@@ -31,7 +30,6 @@ const reset = document.querySelector(".reset");
 let second = 1000;
 let regex = /\w+/g;
 let body = document.activeElement;
-let string = ["Analyze your text in real-time..."];
 
 const light = new URL(
   "/src/Assets/images/logo-light-theme.svg",
