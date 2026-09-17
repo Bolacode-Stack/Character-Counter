@@ -223,9 +223,7 @@ class CharacterStats {
           })
             .filter(({ alphabet }) => alphabet !== undefined)
             .sort((a, b) => (a.count < b.count ? 1 : -1));
-          Storage.saveGraphToStorage(graph);
-          Storage.addTextToStorage(getCharacters());
-          countdown === 0 ? alphabetStats(graph) : undefined;
+          alphabetStats(graph);
         }
 
         const resetUI = document.querySelector(".reset");
@@ -235,6 +233,18 @@ class CharacterStats {
         });
       }, second);
     }
+  }
+
+  updateCharacters() {
+    Storage.addTextToStorage(getCharacters());
+    let inputText = Storage.getTextFromStorage();
+
+    let graph = buildGraph(inputText, (character) => {
+      if (character.match(regex)) return character;
+    })
+      .filter(({ alphabet }) => alphabet !== undefined)
+      .sort((a, b) => (a.count < b.count ? 1 : -1));
+      Storage.saveGraphToStorage(graph)
   }
 
   addGraphToDOM() {
@@ -283,13 +293,14 @@ class CharacterStats {
   }
 
   render() {
-    this.displayTotalCharacters();
     this.displayWordCount();
+    this.updateCharacters();
+    this.displayTotalCharacters();
     this.displaySentenceCount();
+    this.addTextToCharacterInput();
 
-    if (localStorage.getItem("graph") !== null) {
+    if (localStorage.getItem("graph") !== null)  {
       this.addGraphToDOM();
-      this.addTextToCharacterInput();
     }
   }
 }
