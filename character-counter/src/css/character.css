@@ -216,6 +216,10 @@ input[type="checkbox"] {
   accent-color: var(--deep-purple);
 }
 
+input[type="checkbox"]:hover {
+  cursor: pointer;
+}
+
 :is(input) ~ label {
   color: var(--white);
   font-size: var(--reg);
