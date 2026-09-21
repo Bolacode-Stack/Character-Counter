@@ -224,6 +224,7 @@ class CharacterStats {
             .filter(({ alphabet }) => alphabet !== undefined)
             .sort((a, b) => (a.count < b.count ? 1 : -1));
           alphabetStats(graph);
+          Storage.saveGraphToStorage(graph);
         }
 
         const resetUI = document.querySelector(".reset");
@@ -231,7 +232,7 @@ class CharacterStats {
           this.resetUI();
           clearInterval(timeout);
         });
-      }, second);
+      }, 200);
     }
   }
 
@@ -244,7 +245,7 @@ class CharacterStats {
     })
       .filter(({ alphabet }) => alphabet !== undefined)
       .sort((a, b) => (a.count < b.count ? 1 : -1));
-      Storage.saveGraphToStorage(graph)
+    Storage.saveGraphToStorage(graph);
   }
 
   addGraphToDOM() {
@@ -293,13 +294,13 @@ class CharacterStats {
   }
 
   render() {
-    this.displayWordCount();
     this.updateCharacters();
+    this.displayWordCount();
     this.displayTotalCharacters();
     this.displaySentenceCount();
     this.addTextToCharacterInput();
 
-    if (localStorage.getItem("graph") !== null)  {
+    if (localStorage.getItem("graph") !== null) {
       this.addGraphToDOM();
     }
   }
