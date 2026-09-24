@@ -203,7 +203,7 @@ button {
 
 /* checkboxes */
 .checkbox-contents {
-  margin: 12px 0;
+  margin: var(--reg) 0;
 }
 
 .checkbox-contents > * {
@@ -235,7 +235,7 @@ input[type="checkbox"]:hover {
   text-align: center;
   color: var(--white);
   font-size: var(--reg);
-  margin-left: var(--radius);
+  margin: 0 10px;
   background-color: inherit;
   width: calc(var(--reg) * 3.4);
   border-radius: var(--radius);
@@ -246,13 +246,12 @@ input[type="checkbox"]:hover {
 .reset {
   outline: none;
   padding: 3px 8px;
-  font-size: var(--reg);
   color: var(--grey-2);
+  font-size: var(--reg);
   background-color: inherit;
   border-radius: var(--radius);
   box-shadow: 0 4px var(--grey-2);
   border-color: var(--neutral-600);
-  margin-left: calc(var(--reg) - 0.25rem);
 }
 
 .reset:active {

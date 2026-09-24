@@ -7,11 +7,11 @@ const contents = document.querySelector(".contents");
 const limitReached = document.querySelector(".limit-reached");
 const statsParagraph = document.querySelector(".stats-paragraph");
 
-function buildGraph(characters, group) {
+function buildGraph(characters, values) {
   let graph = new Array();
   for (let item of characters) {
     for (let C = 0; C < item.length; C++) {
-      let alphabet = group(item[C]);
+      let alphabet = values(item[C]);
       let known = graph.find((c) => c.alphabet == alphabet);
       if (!known) {
         graph.push({ alphabet, count: 1 });

@@ -78,6 +78,7 @@ class CharacterStats {
 
     localStorage.clear();
     let total = Storage.addCharactersToStorage(totalCount);
+    Storage.addTextToStorage(getCharacters());
 
     spaces.addEventListener("change", (event) => {
       let isChecked = event.target.checked;
@@ -224,20 +225,17 @@ class CharacterStats {
             .filter(({ alphabet }) => alphabet !== undefined)
             .sort((a, b) => (a.count < b.count ? 1 : -1));
           alphabetStats(graph);
-          Storage.saveGraphToStorage(graph);
         }
-
         const resetUI = document.querySelector(".reset");
         resetUI.addEventListener("click", () => {
           this.resetUI();
           clearInterval(timeout);
         });
-      }, 200);
+      }, second);
     }
   }
 
-  updateCharacters() {
-    Storage.addTextToStorage(getCharacters());
+  updateCharacters()  {
     let inputText = Storage.getTextFromStorage();
 
     let graph = buildGraph(inputText, (character) => {
@@ -294,11 +292,14 @@ class CharacterStats {
   }
 
   render() {
-    this.updateCharacters();
     this.displayWordCount();
-    this.displayTotalCharacters();
     this.displaySentenceCount();
-    this.addTextToCharacterInput();
+    this.displayTotalCharacters();
+    
+    if (localStorage.getItem("text") !== null) {
+      this.updateCharacters();
+      this.addTextToCharacterInput();
+    }
 
     if (localStorage.getItem("graph") !== null) {
       this.addGraphToDOM();
