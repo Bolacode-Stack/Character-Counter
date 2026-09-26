@@ -138,7 +138,7 @@ button {
   grid-column: 2 / -2;
 }
 
-#character-input {
+.character-input {
   font-weight: 400;
   line-height: 140%;
   color: var(--white);
@@ -166,30 +166,27 @@ button {
   }
 }
 
-.border {
-  border: 2px solid var(--neutral-700);
-}
-
 .limit {
-  border: 1px solid var(--orange);
+  border: 2px solid var(--orange);
 }
 
 .limit-reached {
+  top: 12px;
   opacity: 0;
+  height: 16%;
   display: flex;
-  margin-top: var(--radius);
+  position: relative;
+  align-items: center;
+  justify-content: center;
   column-gap: calc(var(--reg) / 2);
   transform: translateY(var(--percent));
 }
 
 .limit-reached.show {
   opacity: 1;
+  height: 100%;
   transform: translateY(0);
   transition: transform 800ms ease-in-out;
-}
-
-.limit-reached > img {
-  align-self: center;
 }
 
 .limit-reached > * {
@@ -210,6 +207,7 @@ button {
   font-family: inherit;
 }
 
+/* Checkboxes */
 input[type="checkbox"] {
   width: var(--reg);
   height: var(--reg);
@@ -423,7 +421,7 @@ input[type="checkbox"]:hover {
     background-color: var(--grey);
   }
 
-  & #character-input {
+  & .character-input {
     color: var(--neutral-700);
     border: 2px solid var(--grey-2);
     background-color: var(--grey);

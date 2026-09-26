@@ -1,7 +1,7 @@
 "use strict";
 let output;
 
-const characterInput = document.querySelector("#character-input");
+const characterInput = document.querySelector(".character-input");
 const wrapper = document.querySelector(".progress-wrapper");
 const contents = document.querySelector(".contents");
 const limitReached = document.querySelector(".limit-reached");
@@ -126,13 +126,15 @@ function toggleGraph() {
 button.addEventListener("click", toggleGraph);
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (characterInput.value == "") {
-    limitReached.remove();
+
+  if (characterInput.value.length === 0)  {
+    limitReached.remove()
   }
 
   if (wrapper.innerHTML == "") {
     button.remove();
   }
 });
+
 
 export { buildGraph, contents, button };

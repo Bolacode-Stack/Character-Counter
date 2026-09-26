@@ -15,17 +15,32 @@ let object = {
   start: false,
 };
 
+function appState() {
+  return { start: false };
+}
+
+let app = appState();
+
+const proxy = new Proxy(object, {
+  set(target, property)  {
+    target[property] = true;
+  }
+})
+
+// console.log(proxy);
+
 const limitInput = document.querySelector(".limit-count");
 const limitReached = document.querySelector(".limit-reached");
 const limitCheckbox = document.querySelector("#limit-check");
 const sentenceCount = document.querySelector(".sentence-count");
 const wordCount = document.querySelector(".word-count");
-const characterInput = document.querySelector("#character-input");
+const characterInput = document.querySelector(".character-input");
 const readingTime = document.querySelector(".reading-time");
 const wrapper = document.querySelector(".progress-wrapper");
 let totalCharacters = document.querySelector("#total-characters");
 const statsParagraph = document.querySelector(".stats-paragraph");
 const reset = document.querySelector(".reset");
+const spaces = document.querySelector(".spaces");
 
 let second = 1000;
 let regex = /\w+/g;
@@ -84,27 +99,27 @@ class CharacterStats {
       let isChecked = event.target.checked;
 
       let excludeSpaces = totalCount - this.countSpace();
-      if (isChecked) {
-        totalCharacters.innerText = excludeSpaces;
-      } else {
+      if (!isChecked) {
         totalCharacters.innerText = totalCount;
+      } else {
+        totalCharacters.innerText = excludeSpaces;
       }
 
       if (characterInput.value == "") totalCharacters.innerText = "00";
     });
 
-    if (totalCount >= this.setLimit()) {
-      limitReached.classList.add("show");
-      characterInput.classList.add("limit");
-    } else if (totalCount <= this.setLimit()) {
-      limitReached.classList.remove("show");
-      characterInput.classList.remove("limit");
-    }
+      if (totalCount >= this.setLimit()) {
+        limitReached.classList.add("show");
+        characterInput.classList.add("limit");
+      } else {
+        limitReached.classList.remove("show");
+        characterInput.classList.remove("limit");
+      }
 
     try {
-      object.start = totalCount === 10;
-      if (object.start) {
-        let frozen = Object.freeze(object);
+      app.start = totalCount === 10;
+      if (app.start) {
+        let frozen = Object.freeze(app);
         this.countdown(frozen.start);
       }
     } catch (e) {
@@ -230,12 +245,22 @@ class CharacterStats {
         resetUI.addEventListener("click", () => {
           this.resetUI();
           clearInterval(timeout);
+
+          try {
+            if (app) {
+              let newApp = { ...app }
+              newApp.start = false;
+              // console.log(newApp)
+            }
+          } catch (e) {
+            console.log(e);
+          }
         });
-      }, second);
+      }, 200);
     }
   }
 
-  updateCharacters()  {
+  updateCharacters() {
     let inputText = Storage.getTextFromStorage();
 
     let graph = buildGraph(inputText, (character) => {
@@ -295,7 +320,7 @@ class CharacterStats {
     this.displayWordCount();
     this.displaySentenceCount();
     this.displayTotalCharacters();
-    
+
     if (localStorage.getItem("text") !== null) {
       this.updateCharacters();
       this.addTextToCharacterInput();
