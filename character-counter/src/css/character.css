@@ -227,7 +227,8 @@ input[type="checkbox"]:hover {
   margin-left: calc(var(--reg) - 0.5rem);
 }
 
-.limit-count {
+
+#limit-input {
   height: 29px;
   outline: none;
   text-align: center;

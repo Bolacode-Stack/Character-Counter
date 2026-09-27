@@ -1,7 +1,4 @@
-"use strict";
-
 class Storage {
-
 static addTextToStorage(characters)  {
   localStorage.setItem("text", JSON.stringify(characters));
 }

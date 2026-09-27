@@ -11,25 +11,7 @@ import {
 import Storage from "./storage.js";
 import "/src/CSS/character.css";
 
-let object = {
-  start: false,
-};
-
-function appState() {
-  return { start: false };
-}
-
-let app = appState();
-
-const proxy = new Proxy(object, {
-  set(target, property)  {
-    target[property] = true;
-  }
-})
-
-// console.log(proxy);
-
-const limitInput = document.querySelector(".limit-count");
+const limitInput = document.querySelector("#limit-input");
 const limitReached = document.querySelector(".limit-reached");
 const limitCheckbox = document.querySelector("#limit-check");
 const sentenceCount = document.querySelector(".sentence-count");
@@ -66,9 +48,16 @@ icon.addEventListener("click", () => {
   }
 });
 
+function appState() {
+  return { start: false };
+}
+
+let app = appState();
+
 class CharacterStats {
   constructor() {
     this.render();
+    this.start = false;
     this.loadEventListeners();
   }
 
@@ -83,6 +72,10 @@ class CharacterStats {
       this.wordCount(event);
       this.sentenceCount(event);
     });
+  }
+  setLimit() {
+    let limit = parseInt(limitInput.value);
+    return limit;
   }
 
   totalCharacters(event) {
@@ -108,28 +101,24 @@ class CharacterStats {
       if (characterInput.value == "") totalCharacters.innerText = "00";
     });
 
-      if (totalCount >= this.setLimit()) {
-        limitReached.classList.add("show");
-        characterInput.classList.add("limit");
-      } else {
-        limitReached.classList.remove("show");
-        characterInput.classList.remove("limit");
-      }
+    if (totalCount >= this.setLimit()) {
+      limitReached.classList.add("show");
+      characterInput.classList.add("limit");
+    } else {
+      limitReached.classList.remove("show");
+      characterInput.classList.remove("limit");
+    }
 
     try {
       app.start = totalCount === 10;
       if (app.start) {
         let frozen = Object.freeze(app);
         this.countdown(frozen.start);
+        console.log(frozen);
       }
     } catch (e) {
       console.log(e.message);
     }
-  }
-
-  setLimit() {
-    let limit = parseInt(limitInput.value);
-    return limit;
   }
 
   wordCount(event) {
@@ -199,7 +188,7 @@ class CharacterStats {
         if (characterInput.value == "") totalCharacters.innerText = "00";
       });
 
-      if (count >= this.setLimit(event)) {
+      if (count >= this.setLimit()) {
         limitReached.classList.add("show");
         characterInput.classList.add("limit");
       } else if (count <= this.setLimit()) {
@@ -245,16 +234,6 @@ class CharacterStats {
         resetUI.addEventListener("click", () => {
           this.resetUI();
           clearInterval(timeout);
-
-          try {
-            if (app) {
-              let newApp = { ...app }
-              newApp.start = false;
-              // console.log(newApp)
-            }
-          } catch (e) {
-            console.log(e);
-          }
         });
       }, 200);
     }

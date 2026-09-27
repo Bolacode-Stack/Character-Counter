@@ -1,4 +1,3 @@
-"use strict";
 let output;
 
 const characterInput = document.querySelector(".character-input");
