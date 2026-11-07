@@ -48,12 +48,6 @@ icon.addEventListener("click", () => {
   }
 });
 
-function appState() {
-  return { start: false };
-}
-
-let app = appState();
-
 class CharacterStats {
   constructor() {
     this.render();
@@ -110,16 +104,22 @@ class CharacterStats {
     }
 
     try {
-      app.start = totalCount === 10;
-      if (app.start) {
-        let frozen = Object.freeze(app);
-        this.countdown(frozen.start);
+      this.start = totalCount === 10;
+      this.countdown(this.start);
+
+      if (this.start) {
+        let frozen = Object.freeze(this.start)
         console.log(frozen);
-      }
+      };
+
+      if (this.start) return;
+
     } catch (e) {
       console.log(e.message);
     }
   }
+
+  // y OU
 
   wordCount(event) {
     let count = 0,
