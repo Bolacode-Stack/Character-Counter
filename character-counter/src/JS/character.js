@@ -109,7 +109,7 @@ class CharacterStats {
 
       if (this.start) {
         let frozen = Object.freeze(this.start)
-        console.log(frozen);
+        console.log(frozen, this.start);
       };
 
       if (this.start) return;
@@ -263,6 +263,8 @@ class CharacterStats {
   resetUI() {
     this.resetStats();
     this.resetGraph();
+    this.start = false;
+    console.log(this.start)
     this.resetUtilities();
     localStorage.clear();
     statsParagraph.style.display = "block";
